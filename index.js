@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 
 //Import Routes
 const authRoute = require("./routes/auth");
+const postRoute = require("./routes/posts");
 
 //Environment Variables
 dotenv.config();
@@ -19,5 +20,6 @@ app.use(express.json());
 
 //Route Middlewares
 app.use("/api/users", authRoute);
+app.use("/api/posts", postRoute);
 
 app.listen(3000, () => console.log("Server Listening on Port 3000"));
