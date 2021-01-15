@@ -14,7 +14,7 @@ mongoose.connect(process.env.DB_Connect, { useNewUrlParser: true }, () =>
   console.log("Connected to DB")
 );
 
-//Middlewares
+//Middlewares used as bodyParser
 app.use(express.json());
 
 //Route Middlewares
