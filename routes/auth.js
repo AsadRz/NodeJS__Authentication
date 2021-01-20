@@ -1,12 +1,12 @@
-const router = require("express").Router();
-const User = require("../model/User");
-const { registerValidation, loginValidation } = require("../validation");
-const bcrypt = require("bcryptjs"); //Password Hashing
-const jwt = require("jsonwebtoken");
+const router = require('express').Router();
+const User = require('../src/api/components/auth/Model/User');
 
-router.post("/register", async (req, res) => {
+const bcrypt = require('bcryptjs'); //Password Hashing
+const jwt = require('jsonwebtoken');
+
+router.post('/register', async (req, res) => {
   /**
-   * Validate User before forwading
+   * Validate User before forwarding
    */
 
   const { error } = registerValidation(req.body);
@@ -14,7 +14,7 @@ router.post("/register", async (req, res) => {
 
   // Checking if Email already exists
   const emailExists = await User.findOne({ email: req.body.email });
-  if (emailExists) return res.status(400).send("Email Already Exists");
+  if (emailExists) return res.status(400).send('Email Already Exists');
 
   // Hashing the Password
   const salt = await bcrypt.genSaltSync(10);
@@ -36,7 +36,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+router.post('/login', async (req, res) => {
   /**
    * Validate User before forwading
    */
@@ -46,11 +46,11 @@ router.post("/login", async (req, res) => {
 
   // Checking if Email exists
   const user = await User.findOne({ email: req.body.email });
-  if (!user) return res.status(400).send("Incorrect Email or Password");
+  if (!user) return res.status(400).send('Incorrect Email or Password');
 
   //Checking if password is correct
   const ValidPass = await bcrypt.compare(req.body.password, user.password);
-  if (!ValidPass) return res.status(400).send("Invalid Email or Password");
+  if (!ValidPass) return res.status(400).send('Invalid Email or Password');
 
   //Creating and assigning a token
   const token = jwt.sign(
@@ -59,10 +59,10 @@ router.post("/login", async (req, res) => {
     },
     process.env.TOKEN_SECRET,
     {
-      expiresIn: "2h",
+      expiresIn: '2h',
     }
   );
-  res.header("auth-token", token).send(token);
+  res.header('auth-token', token).send(token);
 });
 
 module.exports = router;

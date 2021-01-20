@@ -1,25 +1,24 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const dotenv = require("dotenv");
-const mongoose = require("mongoose");
-
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+const restRouter = require('./src/api');
 //Import Routes
-const authRoute = require("./routes/auth");
-const postRoute = require("./routes/posts");
+// const authRoute = require("./routes/auth");
+// const postRoute = require("./routes/posts");
 
 //Environment Variables
 dotenv.config();
 
 //Connect Database
 mongoose.connect(process.env.DB_Connect, { useNewUrlParser: true }, () =>
-  console.log("Connected to DB")
+  console.log('Connected to DB')
 );
 
 //Middlewares used as bodyParser
 app.use(express.json());
 
 //Route Middlewares
-app.use("/api/users", authRoute);
-app.use("/api/posts", postRoute);
+app.use('/api', restRouter);
 
-app.listen(3000, () => console.log("Server Listening on Port 3000"));
+app.listen(3000, () => console.log('Server Listening on Port 3000'));
