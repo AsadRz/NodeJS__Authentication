@@ -10,10 +10,18 @@ const restRouter = require('./src/api');
 //Environment Variables
 dotenv.config();
 
+mongoose.Promise = global.Promise;
 //Connect Database
-mongoose.connect(process.env.DB_Connect, { useNewUrlParser: true }, () =>
-  console.log('Connected to DB')
-);
+
+const connectDB = async () => {
+  mongoose.connect(
+    process.env.DB_Connect,
+    { useNewUrlParser: true, useCreateIndex: true },
+    () => console.log('Connected to DB')
+  );
+};
+
+connectDB();
 
 //Middlewares used as bodyParser
 app.use(express.json());
