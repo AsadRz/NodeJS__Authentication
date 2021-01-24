@@ -1,10 +1,11 @@
 const bcrypt = require('bcryptjs'); //Password Hashing
-const User = require('../Model/User');
+const User = require('../../../Model/User');
 /**
  * Email Exists Service
  * @param {req.body.email} data
  */
 const emailExistsCheck = async (data, res) => {
+  console.log(User.findOne({ email: data }));
   const user = await User.findOne({ email: data });
 
   if (user && user !== null) {

@@ -2,11 +2,11 @@
  * Login
  */
 const jwt = require('jsonwebtoken');
-const { loginValidation } = require('../Services/authValidation');
-const comparePassword = require('../Services/Login/comparePassword');
-const { emailExistsCheck } = require('../Services/service');
+const { loginValidation } = require('../../../Validations/User/authValidation');
+const comparePassword = require('../Services/comparePassword');
+const { emailExistsCheck } = require('../Services/emailExistService');
 
-const loginController = {
+module.exports = {
   async authenticateUser(req, res) {
     /**
      * Validate User before forwarding
@@ -40,4 +40,3 @@ const loginController = {
     res.header('auth-token', token).send(token);
   },
 };
-module.exports = loginController;

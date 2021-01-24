@@ -1,7 +1,9 @@
 /**
  * Registration
  */
-const { registerValidation } = require('../Services/authValidation');
+const {
+  registerValidation,
+} = require('../../../Validations/User/authValidation');
 const {
   emailExistsCheck,
   passwordHashing,

@@ -1,3 +1,3 @@
-const authRouter = require('./Routes');
+const authRouter = require('./Routes/loginRoute');
 
 module.exports = authRouter;
